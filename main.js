@@ -57,7 +57,7 @@ async function init() {
   document.getElementById('loading').style.display = 'flex';
   
   try {
-    const res = await fetch('./attendance_data.json');
+    const res = await fetch('/attendance_data.json');
     attendanceData = await res.json();
     setupScene();
     buildVisualization();

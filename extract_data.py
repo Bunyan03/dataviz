@@ -57,7 +57,7 @@ if __name__ == "__main__":
     path = r"c:/BUNYAN/Sem 8/Rules without Rulers/dataviz/attendance-Rules-w-o-Rulers---Thesis-Project (1).xlsx"
     data = parse_attendance(path)
     
-    output_path = r"c:/BUNYAN/Sem 8/Rules without Rulers/dataviz/attendance_data.json"
+    output_path = r"c:/BUNYAN/Sem 8/Rules without Rulers/dataviz/public/attendance_data.json"
     with open(output_path, 'w') as f:
         json.dump(data, f, indent=2)
     print(f"Data saved to {output_path}")
