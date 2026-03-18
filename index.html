@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Attendance Visualization</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="loading">
+      <div class="loader"></div>
+      <p>Loading 3D Workspace...</p>
+    </div>
+    
+    <div id="ui-container">
+      <div class="glass-panel">
+        <h1>Attendance Matrix</h1>
+        <p class="subtitle">15-Week Timeline Analysis</p>
+        
+        <div class="legend">
+          <div class="legend-item">
+            <span class="color-box present"></span> Present
+          </div>
+          <div class="legend-item">
+            <span class="color-box absent"></span> Absent
+          </div>
+        </div>
+
+        <div class="controls">
+          <div style="margin-bottom: 12px; display: flex; gap: 10px;">
+            <div style="flex: 1;">
+              <label for="start-week" style="display:block; font-size: 0.75rem; color: #aaa; margin-bottom:4px;">Start Week</label>
+              <input type="number" id="start-week" min="1" max="15" value="4" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px; border-radius: 4px; outline: none; font-family: inherit;">
+            </div>
+            <div style="flex: 1;">
+              <label for="end-week" style="display:block; font-size: 0.75rem; color: #aaa; margin-bottom:4px;">End Week</label>
+              <input type="number" id="end-week" min="1" max="15" value="9" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px; border-radius: 4px; outline: none; font-family: inherit;">
+            </div>
+          </div>
+          <button id="start-scan" class="btn" style="border-color: #00ffcc; color: #00ffcc; font-weight: 600;">Analyse</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tooltip" class="tooltip hidden"></div>
+    <div id="app"></div>
+    
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
