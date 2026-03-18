@@ -297,14 +297,14 @@ function onMouseMove(event) {
   const intersects = raycaster.intersectObjects(objects.filter(o => o.visible));
 
   if (intersects.length > 0) {
-    if (hoveredBlock !== intersects[0].object && !isScanning) {
+    if (hoveredBlock !== intersects[0].object) {
       if (hoveredBlock) resetBlock(hoveredBlock);
       hoveredBlock = intersects[0].object;
       highlightBlock(hoveredBlock);
       showTooltip(hoveredBlock.userData);
     }
   } else {
-    if (hoveredBlock && !isScanning) {
+    if (hoveredBlock) {
       resetBlock(hoveredBlock);
       hoveredBlock = null;
       hideTooltip();
@@ -326,6 +326,7 @@ function highlightBlock(block) {
 }
 
 function resetBlock(block) {
+  // Use a slight fade out scale rather than reverting completely if during scan
   block.userData.targetScale = 1;
   if(block.userData.isPresent) {
       block.material.emissive.setHex(0x005544);
@@ -367,10 +368,15 @@ function animate() {
     
     // Smooth material decay for flashes
     if (isScanning && scanIndex > 0) {
-       if (obj.userData.isPresent && obj.material.emissiveIntensity > 0.1) {
-           obj.material.emissiveIntensity *= 0.95;
-       } else if (!obj.userData.isPresent && obj.material.opacity > 0.05) {
-           obj.material.opacity *= 0.95;
+       // Only decay objects that have already been scanned or popped
+       if (obj.userData.isPresent && obj.material.emissiveIntensity > 1.0) {
+           obj.material.emissiveIntensity = Math.max(1.0, obj.material.emissiveIntensity * 0.90);
+           obj.material.opacity = Math.max(0.9, obj.material.opacity * 0.95);
+       } else if (!obj.userData.isPresent && obj.material.opacity > 0.2) {
+           // Wait, don't let hovered absent blocks fade if we are currently hovering them
+           if (obj !== hoveredBlock) {
+               obj.material.opacity = Math.max(0.2, obj.material.opacity * 0.90);
+           }
        }
     }
     
